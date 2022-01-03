@@ -1,4 +1,10 @@
 # rps-viewer
+Reaktor pre-assignment: https://www.reaktor.com/assignment-2022-developers/
+
+What was used to create this app:
+- Vue
+- Vuetify
+- JavaScript
 
 ## Project setup
 ```
