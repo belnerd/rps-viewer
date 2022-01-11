@@ -1,10 +1,13 @@
 // Component to show game data from the API
 <template>
-  <div>
-    <div>Game history</div>
-    <v-data-table v-if="history" :headers="headers" :items="history" :items-per-page="10"></v-data-table>
+  <v-card>
+    <v-card-title>Game history
+      <v-spacer></v-spacer>
+    <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details=""></v-text-field>
+    </v-card-title>
+    <v-data-table v-if="history" :headers="headers" :items="history" :items-per-page="10" :search="search"></v-data-table>
     <p v-else>Loading...</p>
-  </div>
+  </v-card>
 </template>
 
 <script>
@@ -16,6 +19,7 @@ export default {
     return {
       API_URL: 'https://bad-api-assignment.reaktor.com/rps/history',
       // Headers for v-data-table
+      search: '',
       headers: [
         {
           text: 'Time',
