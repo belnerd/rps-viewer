@@ -1,12 +1,66 @@
 // Component to show game data from the API
 <template>
-    <div>
-        Game history
-    </div>
+  <div>
+    <div>Game history</div>
+    <v-data-table v-if="history" :headers="headers" :items="history" :items-per-page="10"></v-data-table>
+    <p v-else>Loading...</p>
+  </div>
 </template>
 
 <script>
-    export default {
-        name: 'GameHistory'
+import { formatDate } from '../helpers.js'
+
+export default {
+  name: 'GameHistory',
+  data() {
+    return {
+      API_URL: 'https://bad-api-assignment.reaktor.com/rps/history',
+      // Headers for v-data-table
+      headers: [
+        {
+          text: 'Time',
+          align: 'start',
+          sortable: true,
+          value: 't'
+        },
+        {
+          text: 'Player A',
+          value: 'playerA.name'
+        },
+        {
+          text: 'Played',
+          value: 'playerA.played'
+        },
+        {
+          text: 'Player B',
+          value: 'playerB.name'
+        },
+        {
+          text: 'Played',
+          value: 'playerB.played'
+        }
+      ]
+    };
+  },
+  computed: {
+    history() {
+      return this.$store.state.history;
+    },
+  },
+  created: function () {
+    // Check if history has already been loaded (in case user refreshes page) and clear it to prevent errors
+    if (history) { 
+      this.$store.commit('CLEAR_HISTORY')
     }
+    fetch(this.API_URL)
+    .then(res => res.json())
+    .then(data => {
+      // Transform timestamps to human readable format
+      for (let i = 0; i < data.data.length; i++) {
+        data.data[i].t = formatDate(data.data[i].t)
+      }
+      this.$store.commit('SET_HISTORY', data.data);
+    });
+  }
+};
 </script>
