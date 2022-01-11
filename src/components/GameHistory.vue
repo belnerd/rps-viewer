@@ -1,17 +1,35 @@
 // Component to show game data from the API
 <template>
   <v-card>
-    <v-card-title>Game history
+    <v-card-title
+      >Game history
       <v-spacer></v-spacer>
-    <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details=""></v-text-field>
+      <v-text-field
+        v-model="search"
+        append-icon="mdi-magnify"
+        label="Search"
+        single-line
+        hide-details=""
+      >
+      </v-text-field>
     </v-card-title>
-    <v-data-table v-if="history" :headers="headers" :items="history" :items-per-page="10" :search="search"></v-data-table>
+    <v-data-table
+      v-if="history"
+      :headers="headers"
+      :items="history"
+      :items-per-page="10"
+      :search="search"
+    >
+      <v-alert slot="no-results" :value="true" color="error"
+        >Your search for "{{ search }}" found no results.</v-alert
+      >
+    </v-data-table>
     <p v-else>Loading...</p>
   </v-card>
 </template>
 
 <script>
-import { formatDate } from '../helpers.js'
+import { formatDate } from '../helpers.js';
 
 export default {
   name: 'GameHistory',
@@ -25,25 +43,27 @@ export default {
           text: 'Time',
           align: 'start',
           sortable: true,
-          value: 't'
+          value: 't',
         },
         {
           text: 'Player A',
-          value: 'playerA.name'
+          value: 'playerA.name',
+          filterable: true,
         },
         {
           text: 'Played',
-          value: 'playerA.played'
+          value: 'playerA.played',
         },
         {
           text: 'Player B',
-          value: 'playerB.name'
+          value: 'playerB.name',
+          filterable: true,
         },
         {
           text: 'Played',
-          value: 'playerB.played'
-        }
-      ]
+          value: 'playerB.played',
+        },
+      ],
     };
   },
   computed: {
@@ -53,18 +73,29 @@ export default {
   },
   created: function () {
     // Check if history has already been loaded (in case user refreshes page) and clear it to prevent errors
-    if (history) { 
-      this.$store.commit('CLEAR_HISTORY')
+    if (history) {
+      this.$store.commit('CLEAR_HISTORY');
     }
     fetch(this.API_URL)
-    .then(res => res.json())
-    .then(data => {
-      // Transform timestamps to human readable format
-      for (let i = 0; i < data.data.length; i++) {
-        data.data[i].t = formatDate(data.data[i].t)
-      }
-      this.$store.commit('SET_HISTORY', data.data);
-    });
-  }
+      .then((res) => res.json())
+      .then((data) => {
+        // Transform timestamps to human readable format
+        for (let i = 0; i < data.data.length; i++) {
+          data.data[i].t = formatDate(data.data[i].t);
+        }
+        this.$store.commit('SET_HISTORY', data.data);
+      });
+  },
+  methods: {
+    showAlert() {
+      alert('Alert');
+    },
+  },
 };
 </script>
+
+<style>
+.test {
+  color: red;
+}
+</style>
