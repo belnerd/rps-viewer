@@ -1,43 +1,77 @@
 // Component to show game data from the API
 <template>
-  <v-card>
-    <v-card-title
-      >Game history
-      <v-spacer></v-spacer>
-      <v-text-field
-        v-model="search"
-        append-icon="mdi-magnify"
-        label="Search"
-        single-line
-        hide-details=""
+  <v-container>
+    <v-card>
+      <v-card-title
+        >Game history
+        <v-spacer></v-spacer>
+        <v-text-field
+          v-model="search"
+          append-icon="mdi-magnify"
+          label="Search"
+          single-line
+          hide-details=""
+        >
+        </v-text-field>
+      </v-card-title>
+      <v-data-table
+        v-if="history"
+        :headers="headers"
+        :items="history"
+        :items-per-page="10"
+        :search="search"
       >
-      </v-text-field>
-    </v-card-title>
-    <v-data-table
-      v-if="history"
-      :headers="headers"
-      :items="history"
-      :items-per-page="10"
-      :search="search"
-    >
-      <v-alert slot="no-results" :value="true" color="error"
-        >Your search for "{{ search }}" found no results.</v-alert
+        <template v-slot:[`item.playerA.name`]="{ item }">
+          <span v-on:click="showPlayer(item.playerA.name)">{{
+            item.playerA.name
+          }}</span>
+        </template>
+        <template v-slot:[`item.playerB.name`]="{ item }">
+          <span v-on:click="showPlayer(item.playerB.name)">{{
+            item.playerB.name
+          }}</span>
+        </template>
+        <v-alert slot="no-results" :value="true" color="error"
+          >Your search for "{{ search }}" found no results.</v-alert
+        >
+      </v-data-table>
+      <p v-else>Loading...</p>
+    </v-card>
+    <v-bottom-sheet v-model="sheet">
+      <v-sheet
+        class="text-center"
+        height="200px"
       >
-    </v-data-table>
-    <p v-else>Loading...</p>
-  </v-card>
+        <v-btn
+          class="mt-6"
+          text
+          color="error"
+          @click="sheet = !sheet"
+        >
+          close
+        </v-btn>
+        <PlayerData :player="selectedPlayer"/>
+      </v-sheet>
+    </v-bottom-sheet>
+  </v-container>
 </template>
 
 <script>
 import { formatDate } from '../helpers.js';
+import PlayerData from './PlayerData.vue';
 
 export default {
   name: 'GameHistory',
+  components: {
+    PlayerData,
+  },
   data() {
     return {
       API_URL: 'https://bad-api-assignment.reaktor.com/rps/history',
       // Headers for v-data-table
       search: '',
+      sheet: false,
+      selectedPlayer: null,
       headers: [
         {
           text: 'Time',
@@ -87,15 +121,11 @@ export default {
       });
   },
   methods: {
-    showAlert() {
-      alert('Alert');
+    showPlayer(player) {
+      this.sheet = true;
+      this.selectedPlayer = player;
+      console.log(player);
     },
   },
 };
 </script>
-
-<style>
-.test {
-  color: red;
-}
-</style>
