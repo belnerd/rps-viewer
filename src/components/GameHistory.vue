@@ -21,6 +21,7 @@
         :items-per-page="10"
         :search="search"
       >
+        <!-- Make the player names clickable -->
         <template v-slot:[`item.playerA.name`]="{ item }">
           <span v-on:click="showPlayer(item.playerA.name)">{{
             item.playerA.name
@@ -37,20 +38,14 @@
       </v-data-table>
       <p v-else>Loading...</p>
     </v-card>
+
+    <!-- Sheet to show PlayerData component when a player name is clicked -->
     <v-bottom-sheet v-model="sheet">
-      <v-sheet
-        class="text-center"
-        height="200px"
-      >
-        <v-btn
-          class="mt-6"
-          text
-          color="error"
-          @click="sheet = !sheet"
-        >
+      <v-sheet class="text-center" height="200px">
+        <v-btn class="mt-6" text color="error" @click="sheet = !sheet">
           close
         </v-btn>
-        <PlayerData :player="selectedPlayer"/>
+        <PlayerData :player="selectedPlayer" />
       </v-sheet>
     </v-bottom-sheet>
   </v-container>
