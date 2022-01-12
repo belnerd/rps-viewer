@@ -3,6 +3,7 @@
   <v-container>
     <p>Player: {{ player }}</p>
     <p>Total games played: {{ games.length }}</p>
+    <p>Games won: {{ gamesWon }} | Win ratio {{ gamesWon / games.length  }}</p>
     <v-data-table
       v-if="games"
       :headers="headers"
@@ -21,6 +22,7 @@ export default {
   data() {
     return {
       games: [],
+      gamesWon: 0,
       headers: [
         {
           text: 'Time',
@@ -67,6 +69,7 @@ export default {
     findPlayerGames() {
       if (this.games) {
         this.games = [];
+        this.gamesWon = 0;
       }
       for (let i = 0; i < this.history.length; i++) {
         if (
@@ -74,6 +77,18 @@ export default {
           this.history[i].playerB.name == this.player
         ) {
           this.games.push(this.history[i]);
+          // Check if player A the current player and is the winner
+          if (this.history[i].playerA.name === this.player) {
+            if (this.history[i].status === 'A') {
+              this.gamesWon++;
+            }
+          }
+          // Check if player B the current player and is the winner
+          if (this.history[i].playerB.name === this.player) {
+              if (this.history[i].status === 'B') {
+                  this.gamesWon++;
+              }
+          }
         }
       }
     },
