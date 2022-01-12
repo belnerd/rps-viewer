@@ -3,7 +3,7 @@
   <v-container>
     <p>Player: {{ player }}</p>
     <p>Total games played: {{ games.length }}</p>
-    <p>Games won: {{ gamesWon }} | Win ratio {{ gamesWon / games.length  }}</p>
+    <p>Games won: {{ gamesWon }} | Win ratio {{ (gamesWon / games.length).toFixed(2) }}</p>
     <v-data-table
       v-if="games"
       :headers="headers"
@@ -23,34 +23,7 @@ export default {
     return {
       games: [],
       gamesWon: 0,
-      headers: [
-        {
-          text: 'Time',
-          align: 'start',
-          sortable: true,
-          value: 't',
-        },
-        {
-          text: 'Player A',
-          value: 'playerA.name',
-        },
-        {
-          text: 'Played',
-          value: 'playerA.played',
-        },
-        {
-          text: 'Player B',
-          value: 'playerB.name',
-        },
-        {
-          text: 'Played',
-          value: 'playerB.played',
-        },
-        {
-          text: 'Winner',
-          value: 'status',
-        },
-      ],
+      headers: this.$store.state.tableHeaders
     };
   },
   computed: {

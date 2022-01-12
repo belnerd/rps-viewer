@@ -67,36 +67,7 @@ export default {
       search: '',
       sheet: false,
       selectedPlayer: null,
-      headers: [
-        {
-          text: 'Time',
-          align: 'start',
-          sortable: true,
-          value: 't',
-        },
-        {
-          text: 'Player A',
-          value: 'playerA.name',
-          filterable: true,
-        },
-        {
-          text: 'Played',
-          value: 'playerA.played',
-        },
-        {
-          text: 'Player B',
-          value: 'playerB.name',
-          filterable: true,
-        },
-        {
-          text: 'Played',
-          value: 'playerB.played',
-        },
-        {
-          text: 'Winner',
-          value: 'status',
-        },
-      ],
+      headers: this.$store.state.tableHeaders
     };
   },
   computed: {
