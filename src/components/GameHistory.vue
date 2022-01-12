@@ -41,7 +41,7 @@
 
     <!-- Sheet to show PlayerData component when a player name is clicked -->
     <v-bottom-sheet v-model="sheet">
-      <v-sheet class="text-center" height="200px">
+      <v-sheet class="text-center">
         <v-btn class="mt-6" text color="error" @click="sheet = !sheet">
           close
         </v-btn>
@@ -52,7 +52,7 @@
 </template>
 
 <script>
-import { formatDate } from '../helpers.js';
+import { formatDate, checkWinner } from '../helpers.js';
 import PlayerData from './PlayerData.vue';
 
 export default {
@@ -92,6 +92,10 @@ export default {
           text: 'Played',
           value: 'playerB.played',
         },
+        {
+          text: 'Winner',
+          value: 'status',
+        },
       ],
     };
   },
@@ -108,9 +112,13 @@ export default {
     fetch(this.API_URL)
       .then((res) => res.json())
       .then((data) => {
-        // Transform timestamps to human readable format
+        // Transform timestamps to human readable format and check which player won
         for (let i = 0; i < data.data.length; i++) {
           data.data[i].t = formatDate(data.data[i].t);
+          data.data[i].status = checkWinner(
+            data.data[i].playerA.played,
+            data.data[i].playerB.played
+          );
         }
         this.$store.commit('SET_HISTORY', data.data);
       });
@@ -120,7 +128,7 @@ export default {
       this.sheet = true;
       this.selectedPlayer = player;
       console.log(player);
-    },
+    }
   },
 };
 </script>
