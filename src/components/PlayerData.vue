@@ -3,6 +3,12 @@
   <v-container>
     <p>Player: {{ player }}</p>
     <p>Total games played: {{ games.length }}</p>
+    <v-data-table
+      v-if="games"
+      :headers="headers"
+      :items="games"
+      :items-per-page="5"
+    ></v-data-table>
   </v-container>
 </template>
 
@@ -15,6 +21,34 @@ export default {
   data() {
     return {
       games: [],
+      headers: [
+        {
+          text: 'Time',
+          align: 'start',
+          sortable: true,
+          value: 't',
+        },
+        {
+          text: 'Player A',
+          value: 'playerA.name',
+        },
+        {
+          text: 'Played',
+          value: 'playerA.played',
+        },
+        {
+          text: 'Player B',
+          value: 'playerB.name',
+        },
+        {
+          text: 'Played',
+          value: 'playerB.played',
+        },
+        {
+          text: 'Winner',
+          value: 'status',
+        },
+      ],
     };
   },
   computed: {
