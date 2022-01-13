@@ -23,12 +23,12 @@
       >
         <!-- Make the player names clickable -->
         <template v-slot:[`item.playerA.name`]="{ item }">
-          <span v-on:click="showPlayer(item.playerA.name)">{{
+          <span class="clickable" v-on:click="showPlayer(item.playerA.name)">{{
             item.playerA.name
           }}</span>
         </template>
         <template v-slot:[`item.playerB.name`]="{ item }">
-          <span v-on:click="showPlayer(item.playerB.name)">{{
+          <span class="clickable" v-on:click="showPlayer(item.playerB.name)">{{
             item.playerB.name
           }}</span>
         </template>
@@ -67,7 +67,7 @@ export default {
       search: '',
       sheet: false,
       selectedPlayer: null,
-      headers: this.$store.state.tableHeaders
+      headers: this.$store.state.tableHeaders,
     };
   },
   computed: {
@@ -99,7 +99,15 @@ export default {
       this.sheet = true;
       this.selectedPlayer = player;
       console.log(player);
-    }
+    },
   },
 };
 </script>
+
+<style scoped>
+.clickable {
+  cursor: pointer;
+  color: blue;
+  text-decoration: underline;
+}
+</style>
