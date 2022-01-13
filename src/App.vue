@@ -3,7 +3,7 @@
     <v-container>
       <v-row>
         <v-col><GameHistory /></v-col>
-        <!-- <v-col><LiveData /></v-col> -->
+        <v-col><LiveData /></v-col>
       </v-row>
     </v-container>
   </v-app>
@@ -11,14 +11,14 @@
 
 <script>
 import GameHistory from './components/GameHistory.vue';
-// import LiveData from './components/LiveData.vue';
+import LiveData from './components/LiveData.vue';
 
 export default {
   name: 'App',
 
   components: {
     GameHistory,
-    // LiveData,
+    LiveData,
   },
 };
 </script>
