@@ -1,9 +1,24 @@
 // A component to show individual player data
 <template>
   <v-container>
-    <p>Player: {{ player }}</p>
-    <p>Total games played: {{ games.length }}</p>
-    <p>Games won: {{ gamesWon }} | Win ratio {{ (gamesWon / games.length).toFixed(2) }}</p>
+    <v-simple-table>
+      <thead>
+        <tr>
+          <th class="text-left">Player</th>
+          <th class="text-left">Games played</th>
+          <th class="text-left">Games won</th>
+          <th class="text-left">Win ratio</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="text-left">{{ player }}</td>
+          <td class="text-left">{{ games.length }}</td>
+          <td class="text-left">{{ gamesWon }}</td>
+          <td class="text-left">{{ (gamesWon / games.length).toFixed(2) }}</td>
+        </tr>
+      </tbody>
+    </v-simple-table>
     <v-data-table
       v-if="games"
       :headers="headers"
@@ -23,7 +38,7 @@ export default {
     return {
       games: [],
       gamesWon: 0,
-      headers: this.$store.state.tableHeaders
+      headers: this.$store.state.tableHeaders,
     };
   },
   computed: {
@@ -58,9 +73,9 @@ export default {
           }
           // Check if player B the current player and is the winner
           if (this.history[i].playerB.name === this.player) {
-              if (this.history[i].status === 'B') {
-                  this.gamesWon++;
-              }
+            if (this.history[i].status === 'B') {
+              this.gamesWon++;
+            }
           }
         }
       }
