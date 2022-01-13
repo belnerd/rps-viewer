@@ -3,6 +3,7 @@ Reaktor pre-assignment: https://www.reaktor.com/assignment-2022-developers/
 
 What was used to create this app:
 - Vue
+- vuex store
 - Vuetify
 - JavaScript
 
