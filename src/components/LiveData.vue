@@ -3,8 +3,8 @@
   <v-container>
     <v-card>
       <v-card-title
-        >LiveData
-        <v-btn @click="connection.close()">Stop</v-btn>
+        >Ongoing games - Live
+        <!-- <v-btn @click="connection.close()">Stop</v-btn> -->
       </v-card-title>
       <v-simple-table v-if="gameData.length > 0">
         <thead>
