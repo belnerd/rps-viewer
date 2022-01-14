@@ -42,6 +42,9 @@ const store = new Vuex.Store({
     },
     CLEAR_HISTORY: (state) => {
       state.history = null;
+    },
+    PUSH_HISTORY: (state, payload) => {
+      state.history.push(payload)
     }
   },
   actions: {},
