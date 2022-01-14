@@ -98,7 +98,6 @@ export default {
     showPlayer(player) {
       this.sheet = true;
       this.selectedPlayer = player;
-      console.log(player);
     },
   },
 };
