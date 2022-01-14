@@ -37,11 +37,6 @@ export default {
       gameData: [],
     };
   },
-  computed: {
-    history() {
-      return this.$store.state.history;
-    },
-  },
   created: function () {
     // View model to access Vue data object
     let vm = this;
