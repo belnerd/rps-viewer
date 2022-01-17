@@ -62,7 +62,7 @@ export default {
   },
   data() {
     return {
-      API_URL: 'https://bad-api-assignment.reaktor.com/rps/history',
+      PROXY_URL: 'https://bln-cors-proxy.herokuapp.com/',
       // Headers for v-data-table
       search: '',
       sheet: false,
@@ -80,12 +80,11 @@ export default {
     if (history) {
       this.$store.commit('CLEAR_HISTORY');
     }
-    fetch(this.API_URL, {
-      mode: 'cors',
+    fetch(this.PROXY_URL, {
+      method: 'GET',
       headers: {
-        'Access-Control-Allow-Origin': 'https://rps-viewer.herokuapp.com',
-        'Vary': 'origin',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Target-Endpoint': 'https://bad-api-assignment.reaktor.com/rps/history'
       }
     })
       .then((res) => res.json())
