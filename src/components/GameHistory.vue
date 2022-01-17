@@ -83,7 +83,6 @@ export default {
     fetch(this.API_URL, {
       mode: 'cors',
       headers: {
-        'Access-Control-Allow-Origin': '*',
         'Content-Type': 'application/json'
       }
     })
