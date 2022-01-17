@@ -83,6 +83,8 @@ export default {
     fetch(this.API_URL, {
       mode: 'cors',
       headers: {
+        'Access-Control-Allow-Origin': 'https://rps-viewer.herokuapp.com',
+        'Vary': 'origin',
         'Content-Type': 'application/json'
       }
     })
