@@ -80,7 +80,13 @@ export default {
     if (history) {
       this.$store.commit('CLEAR_HISTORY');
     }
-    fetch(this.API_URL)
+    fetch(this.API_URL, {
+      mode: 'cors',
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json'
+      }
+    })
       .then((res) => res.json())
       .then((data) => {
         // Transform timestamps to human readable format and check which player won
