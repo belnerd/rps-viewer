@@ -84,7 +84,7 @@ export default {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Target-Endpoint': 'https://bad-api-assignment.reaktor.com/rps/history'
+        'Target-URL': 'https://bad-api-assignment.reaktor.com/rps/history'
       }
     })
       .then((res) => res.json())
