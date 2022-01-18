@@ -10,7 +10,7 @@ What was used to create this app:
 - JavaScript
 - Node.js/express CORS proxy
 
-# What is the app doing
+## What is the app doing
 
 The app is divided into three components
 
